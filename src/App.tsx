@@ -1,11 +1,7 @@
-// import React from "react";
+import Landing from "./pages/Landing";
 
 const App = () => {
-  return (
-    <div className="w-screen h-screen flex justify-center items-center text-9xl ">
-      App
-    </div>
-  );
+  return <Landing />;
 };
 
 export default App;

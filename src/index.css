@@ -8,7 +8,9 @@
   font-family: "apple";
   src: url("./lib/fonts/SFPRODISPLAYREGULAR.OTF");
 }
-
+::-webkit-scrollbar {
+  width: 0px;
+}
 :root {
   font-family: "apple";
   --background: oklch(1 0 0);
@@ -127,4 +129,11 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Prevent default scrolling */
 }
