@@ -26,7 +26,7 @@ const File = () => {
   const [code, setCode] = useState("");
 
   const getData = async () => {
-    if (!state?.fileId) return; // Prevent unnecessary API calls
+    if (!state?.fileId) return;
 
     try {
       const res = await axios.get(`${backend_url}/file/${state.fileId}`);
@@ -40,8 +40,6 @@ const File = () => {
   };
 
   useEffect(() => {
-    // console.log("Location State:", location.state);
-    // console.log("File ID:", state?.fileId);
     if (state?.fileId) {
       getData();
     } else {

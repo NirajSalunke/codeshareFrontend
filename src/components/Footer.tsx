@@ -16,9 +16,7 @@ export function Footer() {
               <span className="text-[#5046e6]">Niraj Salunke</span>
             </p>
           </BoxReveal>
-
           <BoxReveal boxColor={"#5046e6"} duration={0.5}>
-            ``
             <h2 className="mt-2 text-lg text-muted-foreground">
               3D Web | Full Stack Developer
             </h2>
