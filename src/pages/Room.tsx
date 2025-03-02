@@ -53,7 +53,7 @@ const Room = () => {
         toast("File has been created", {
           action: {
             label: "OK",
-            onClick: () => console.log("ok"),
+            onClick: () => console.log("oK"),
           },
         });
         router("/room/file", {
@@ -114,7 +114,7 @@ const Room = () => {
               <span className="text-white">{formatDate(room.expiresAt)}</span>
             </p>
           </div>
-          <div className="flex items-center ">
+          <div className="flex items-center gap-2 ">
             <Dialog>
               <DialogTrigger asChild className="">
                 <Button variant="default">New File</Button>
@@ -163,6 +163,14 @@ const Room = () => {
                 </form>
               </DialogContent>
             </Dialog>
+            <Button
+              onClick={() => {
+                router("/");
+              }}
+              variant="outline"
+            >
+              Back to Home
+            </Button>
           </div>
         </div>
 

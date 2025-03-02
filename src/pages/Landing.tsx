@@ -1,4 +1,5 @@
 import { CommandBox } from "@/components/CommandBox";
+import { Footer } from "@/components/Footer";
 import Main from "@/components/Main";
 import Main2 from "@/components/Main2";
 import LocomotiveScroll from "locomotive-scroll";
@@ -25,12 +26,25 @@ const Landing = () => {
       ref={containerRef}
       data-scroll-container
     >
-      <Main />
-      <div
+      <div className="w-screen h-screen" data-scroll-section>
+        <Main />
+      </div>
+
+      {/* <div
         className="bg-white w-screen h-[0.5px] shadow-2xl shadow-red-500 "
         data-scroll-section
-      />
-      <Main2 />
+      /> */}
+      <div className="w-screen h-[2vh] bg-black" data-scroll-section></div>
+      <div data-scroll-section className="w-screen h-screen">
+        <Main2 />
+      </div>
+      {/* <div className="w-screen h-[15vh] bg-black" data-scroll-section></div> */}
+      <div
+        className="w-screen h-[60vh] flex  justify-center items-center "
+        data-scroll-section
+      >
+        <Footer />
+      </div>
     </main>
   );
 };

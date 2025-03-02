@@ -40,8 +40,8 @@ const File = () => {
   };
 
   useEffect(() => {
-    console.log("Location State:", location.state);
-    console.log("File ID:", state?.fileId);
+    // console.log("Location State:", location.state);
+    // console.log("File ID:", state?.fileId);
     if (state?.fileId) {
       getData();
     } else {
@@ -65,13 +65,41 @@ const File = () => {
         });
       }
     } catch (error: any) {
-      toast("Something went Wrong, Try again!", {
-        description: error.message,
-      });
+      if (error.status === 404) {
+        toast("Something went Wrong, Try again!", {
+          description:
+            error.response.data.message +
+            ", Maybe deleted, going back to room!",
+        });
+      } else if (error.status === 400) {
+        toast("Something went Wrong, Try again!");
+      } else {
+        toast("Something went Wrong, Try again!", {
+          description: error.response.data.message,
+        });
+      }
       console.error(error);
     }
   };
-
+  if (!currFile) {
+    return (
+      <>
+        <div className="w-screen h-screen text-3xl flex flex-col gap-5 justify-center items-center">
+          <div> File Not Found or May have Deleted!</div>
+          <Button
+            onClick={() =>
+              router("/room", {
+                state: { room: state.room, name: state.room?.name },
+              })
+            }
+            variant="outline"
+          >
+            Back to Room
+          </Button>
+        </div>
+      </>
+    );
+  }
   return (
     <main className="text-white bg-black w-screen h-screen p-6 flex flex-col gap-6">
       <div className="w-full flex justify-between gap-1 border-b border-gray-700 h-[17vh]">

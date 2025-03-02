@@ -31,7 +31,9 @@ export function CommandBox() {
   const [open, setOpen] = useState(false);
   const [nameCreateRoom, setnameCreateRoom] = useState("");
   const [nameJoinRoom, setnameJoinRoom] = useState("");
+  // const [passJoinRoom, setpassJoinRoom] = useState("");
   const [subMsgCreate, setsubMsgCreate] = useState("Create Room");
+  const [subMsgJoin, setsubMsgJoin] = useState("Join Room");
   const [pass, setPass] = useState("");
   const router = useNavigate();
   const submitCreateRoom = async (e: FormEvent) => {
@@ -81,14 +83,47 @@ export function CommandBox() {
     }
   };
 
-  const submitJoinRoom = (e: FormEvent) => {
+  const submitJoinRoom = async (e: FormEvent) => {
     e.preventDefault();
-    router("/room", {
-      state: {
+    setsubMsgJoin("Joining Room...");
+    console.log({
+      name: nameJoinRoom,
+      password: pass,
+    });
+    try {
+      const res = await axios.post(`${backend_url}/room/join`, {
         name: nameJoinRoom,
         password: pass,
-      },
-    });
+      });
+      if (res.data.success) {
+        setsubMsgJoin("Joined Room");
+        const dateExpiresAt = formatDate(res.data.room.expiresAt);
+        toast("Room has been joined", {
+          description: `Expires at ${dateExpiresAt}.`,
+          action: {
+            label: "OK",
+            onClick: () => console.log("ok"),
+          },
+        });
+        router("/room", {
+          state: {
+            name: nameJoinRoom,
+            password: pass,
+            room: res.data.room,
+          },
+        });
+      }
+      setsubMsgJoin("Join Room");
+    } catch (error: any) {
+      setsubMsgJoin("Failed to join Room");
+      toast("Something went Wrong, Try again!", {
+        description: error.response?.error || error.message,
+      });
+      console.log(error.message);
+      setTimeout(() => {
+        setsubMsgJoin("Join Room");
+      }, 2000);
+    }
   };
 
   const handleClick = (e: React.FormEvent) => {
@@ -206,10 +241,10 @@ export function CommandBox() {
                         className="col-span-3"
                       />
                     </div>
+                    <DialogFooter>
+                      <Button type="submit">{subMsgJoin}</Button>
+                    </DialogFooter>
                   </form>
-                  <DialogFooter>
-                    <Button type="submit">Join Room</Button>
-                  </DialogFooter>
                 </DialogContent>
               </Dialog>
             </CommandItem>

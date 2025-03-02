@@ -5,7 +5,7 @@ import Robot from "./models/Robot";
 
 const Main = () => {
   return (
-    <div className="h-screen w-screen" data-scroll-section>
+    <div className="h-full w-full">
       <div className="w-screen h-[10vh]   text-white flex items-center dark   ">
         <div className="w-1/2 text-white h-full flex items-center gap-2 justify-start px-10">
           <IconCode />
