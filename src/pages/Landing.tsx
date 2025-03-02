@@ -1,4 +1,6 @@
-import Robot from "@/components/models/Robot";
+import { CommandBox } from "@/components/CommandBox";
+import Main from "@/components/Main";
+import Main2 from "@/components/Main2";
 import LocomotiveScroll from "locomotive-scroll";
 import "locomotive-scroll/dist/locomotive-scroll.css";
 import { useEffect, useRef } from "react";
@@ -7,13 +9,11 @@ const Landing = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Initialize Locomotive Scroll
     const scroll = new LocomotiveScroll({
       el: containerRef.current,
-      smooth: true, // Enable smooth scrolling
+      smooth: true,
     });
 
-    // Cleanup on component unmount
     return () => {
       scroll.destroy();
     };
@@ -21,14 +21,16 @@ const Landing = () => {
 
   return (
     <main
-      className="w-screen bg-black"
+      className="w-screen bg-black "
       ref={containerRef}
       data-scroll-container
     >
-      <div className="h-screen overflow-clip w-full" data-scroll-section>
-        <Robot />
-      </div>
-      <div className="w-full h-screen" data-scroll-section></div>
+      <Main />
+      <div
+        className="bg-white w-screen h-[0.5px] shadow-2xl shadow-red-500 "
+        data-scroll-section
+      />
+      <Main2 />
     </main>
   );
 };
