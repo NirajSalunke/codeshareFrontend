@@ -6,7 +6,7 @@ import { Button } from "./ui/button";
 import { IconHttpDelete } from "@tabler/icons-react";
 import axios from "axios";
 import { toast } from "sonner";
-import { extensionGiver } from "@/helpers/helper";
+import { extensionGiver, RoomInter, FileInter } from "@/helpers/helper";
 import {
   Drawer,
   DrawerClose,
@@ -17,10 +17,17 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-const FileShower = ({ room, flag, setFlag }) => {
+
+const FileShower = ({
+  room,
+  setFlag,
+}: {
+  room: RoomInter;
+  setFlag: (val: boolean) => void;
+}) => {
   const router = useNavigate();
   const backend_url = import.meta.env.VITE_BACKEND_URL;
-  const handleClick = (ele: unknown) => {
+  const handleClick = (ele: FileInter) => {
     console.log("Handle Clicked");
 
     router("/room/file", {
@@ -31,7 +38,7 @@ const FileShower = ({ room, flag, setFlag }) => {
     });
   };
 
-  const deleteFile = async (ele) => {
+  const deleteFile = async (ele: FileInter) => {
     try {
       const res = await axios.delete(`${backend_url}/file/${ele?.ID}`);
       if (res.data.success) {
@@ -63,7 +70,7 @@ const FileShower = ({ room, flag, setFlag }) => {
     <main className="w-full h-full">
       <h1 className="p-2 h-[5vh] ">All files</h1>
       <ScrollArea className="h-[65vh] ">
-        {room.files?.map((ele, idx) => (
+        {room.files?.map((ele: FileInter, idx: number) => (
           <div className="flex items-center">
             <CardSpotlight
               radius={80}

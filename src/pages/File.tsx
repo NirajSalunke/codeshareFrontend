@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/drawer";
 import axios from "axios";
 import { toast } from "sonner";
-import { extensionGiver } from "@/helpers/helper";
+import { extensionGiver, FileInter } from "@/helpers/helper";
 
 const File = () => {
   const router = useNavigate();
@@ -22,7 +22,14 @@ const File = () => {
   const state = location?.state || {};
   const backend_url = import.meta.env.VITE_BACKEND_URL;
 
-  const [currFile, setCurrFile] = useState(null);
+  const [currFile, setCurrFile] = useState<FileInter>({
+    ID: 0,
+    roomId: 0,
+    name: "",
+    fileType: "",
+    content: "",
+  });
+
   const [code, setCode] = useState("");
 
   const getData = async () => {
@@ -107,7 +114,7 @@ const File = () => {
             Name:{" "}
             <span className="text-white font-medium">
               {currFile?.name}
-              {extensionGiver(currFile?.fileType)}
+              {extensionGiver(currFile.fileType)}
             </span>
           </p>
           <p className="text-sm text-gray-500">

@@ -1,8 +1,6 @@
-// import { useParams } from "react-router-dom";
-
 import FileShower from "@/components/FileShower";
 
-import { formatDate } from "@/helpers/helper";
+import { formatDate, RoomInter } from "@/helpers/helper";
 import {
   Dialog,
   DialogContent,
@@ -29,10 +27,19 @@ import { toast } from "sonner";
 
 const Room = () => {
   const state = useLocation().state;
-  const [flag, setFlag] = useState(false);
+  const [flag, setFlag] = useState<boolean>(false);
   const router = useNavigate();
   const backend_url = import.meta.env.VITE_BACKEND_URL;
-  const [room, setRoom] = useState({});
+  const [room, setRoom] = useState<RoomInter>({
+    ID: 0,
+    OwnerID: "",
+    name: "",
+    password: "",
+    isPrivate: false,
+    expiresAt: undefined,
+    files: [],
+  });
+
   const [newFileName, setNewFileName] = useState("");
   const [newFileType, setNewFileType] = useState("");
   const [subMsgCreate, setsubMsgCreate] = useState("Add File to Room");
@@ -111,7 +118,7 @@ const Room = () => {
 
             <p className="text-sm text-gray-500">
               Expires on:{" "}
-              <span className="text-white">{formatDate(room.expiresAt)}</span>
+              <span className="text-white">{formatDate(room?.expiresAt)}</span>
             </p>
           </div>
           <div className="flex items-center gap-2 ">
@@ -176,7 +183,7 @@ const Room = () => {
 
         {/* Room Content */}
         <div className="w-full flex-1 rounded-lg  p-4 shadow-lg h-[70vh]">
-          <FileShower room={room} flag={flag} setFlag={setFlag} />
+          <FileShower room={room} setFlag={setFlag} />
         </div>
       </main>
     </>
