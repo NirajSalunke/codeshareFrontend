@@ -4,9 +4,25 @@ import Landing from "./pages/Landing";
 import Room from "./pages/Room";
 import File from "./pages/File";
 import CurMobView from "./components/CurMobView";
-
+const backend_url = import.meta.env.VITE_BACKEND_URL;
 const App = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  useEffect(() => {
+    // Function to make the backend request
+    const fetchBackend = async () => {
+      try {
+        const response = await fetch(`${backend_url}/home`);
+        const data = await response.json();
+        console.log("Backend response:", data);
+      } catch (error) {
+        console.error("Error fetching backend:", error);
+      }
+    };
+    fetchBackend();
+    const interval = setInterval(fetchBackend, 600000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {

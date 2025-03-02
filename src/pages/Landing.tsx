@@ -1,4 +1,3 @@
-import { CommandBox } from "@/components/CommandBox";
 import { Footer } from "@/components/Footer";
 import Main from "@/components/Main";
 import Main2 from "@/components/Main2";
