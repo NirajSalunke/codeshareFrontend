@@ -58,7 +58,8 @@ const Room = () => {
         });
         router("/room/file", {
           state: {
-            file: res.data.file,
+            // file: res.data.file,
+            fileId: res.data.file.ID,
             room: res.data.room,
           },
         });
@@ -101,7 +102,7 @@ const Room = () => {
             <h2 className="text-5xl font-bold tracking-tight">Room</h2>
             <p className="text-lg text-gray-400">
               Unique Name:{" "}
-              <span className="text-white font-medium">{state.name}</span>
+              <span className="text-white font-medium">{room.name}</span>
             </p>
 
             {room.OwnerID && (
@@ -145,6 +146,8 @@ const Room = () => {
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="asm">Assembly</SelectItem>
+                        <SelectItem value="javascript">JavaScript</SelectItem>
+                        <SelectItem value="typescript">TypeScript</SelectItem>
                         <SelectItem value="cpp">C++</SelectItem>
                         <SelectItem value="java">Java</SelectItem>
                         <SelectItem value="go">GO</SelectItem>

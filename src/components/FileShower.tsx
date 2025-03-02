@@ -6,16 +6,27 @@ import { Button } from "./ui/button";
 import { IconHttpDelete } from "@tabler/icons-react";
 import axios from "axios";
 import { toast } from "sonner";
-
+import { extensionGiver } from "@/helpers/helper";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
 const FileShower = ({ room, flag, setFlag }) => {
   const router = useNavigate();
   const backend_url = import.meta.env.VITE_BACKEND_URL;
-  const handleClick = (ele) => {
+  const handleClick = (ele: unknown) => {
     console.log("Handle Clicked");
 
     router("/room/file", {
       state: {
-        file: ele,
+        fileId: ele?.ID,
+        room: room,
       },
     });
   };
@@ -26,7 +37,7 @@ const FileShower = ({ room, flag, setFlag }) => {
       if (res.data.success) {
         setFlag(false);
         console.log(ele?.name + "File deleted");
-        toast(ele?.name + "." + ele?.fileType + " file deleted", {
+        toast(ele?.name + extensionGiver(ele?.fileType) + " file deleted", {
           action: {
             label: "OK",
             onClick: () => console.log("ok"),
@@ -68,9 +79,33 @@ const FileShower = ({ room, flag, setFlag }) => {
                 <h2>{ele?.name}</h2>
               </h2>
             </CardSpotlight>
-            <Button className="cursor-pointer" onClick={() => deleteFile(ele)}>
-              <IconHttpDelete className="scale-150" />
-            </Button>
+            <Drawer>
+              <DrawerTrigger asChild>
+                <Button className="cursor-pointer">
+                  <IconHttpDelete className="scale-150" />
+                </Button>
+              </DrawerTrigger>
+              <DrawerContent className="p-6 mx-auto rounded-lg bg-black text-white">
+                <DrawerHeader className="text-center">
+                  <DrawerTitle className="text-3xl font-bold">
+                    Are you absolutely sure?
+                  </DrawerTitle>
+                  <DrawerDescription className="text-lg text-muted-foreground mt-2">
+                    This action cannot be undone.
+                  </DrawerDescription>
+                </DrawerHeader>
+                <DrawerFooter className="flex justify-center gap-4">
+                  <DrawerClose>
+                    <Button
+                      onClick={() => deleteFile(ele)}
+                      variant="destructive"
+                    >
+                      Delete
+                    </Button>
+                  </DrawerClose>
+                </DrawerFooter>
+              </DrawerContent>
+            </Drawer>
           </div>
         ))}
       </ScrollArea>

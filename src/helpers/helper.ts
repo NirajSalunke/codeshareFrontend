@@ -24,3 +24,20 @@ export const formatDate = (isoString: string): string => {
     month: "short",
   });
 };
+
+export const extensionGiver = (fileType: string) => {
+  switch (fileType) {
+    case "javascript":
+      return ".js";
+    case "typescript":
+      return ".ts";
+    case "asm":
+      return ".asm";
+    case "cpp":
+      return ".cpp";
+    case "java":
+      return ".java";
+    case "python":
+      return ".py";
+  }
+};
