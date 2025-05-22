@@ -1,3 +1,5 @@
+![image](https://github.com/user-attachments/assets/8a890462-d8e8-40e3-9b96-d4d94e3ab8e6)
+
 # CodeShare Frontend
 
 The official frontend for CodeShare, a collaborative platform for sharing, editing, and discussing code in real-time. Designed for developers, educators, and teams, CodeShare simplifies collaborative coding experiences with an intuitive interface and powerful features.
